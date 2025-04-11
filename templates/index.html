@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediClinic - Online Appointment</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+{% include('navigation.html')%}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-top">
+                <div class="col-md-6">
+                    <h1>Book Your Appointment with Ease at MediClinic</h1>
+                    <p>Say goodbye to long wait times, schedule, reschedule, or cancel appointments hassle-free.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="static/images/mediclinic.png" alt="Placeholder Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container text-center">
+            <h2>How It Works</h2>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2 step">
+                    <i class="fas fa-stethoscope"></i>
+                    <h3>Step 1</h3>
+                    <p>Select Service</p>
+                </div>
+                <div class="col-md-2 step">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Step 2</h3>
+                    <p>Select Doctor</p>
+                </div>
+                <div class="col-md-2 step">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Step 3</h3>
+                    <p>Select Date</p>
+                </div>
+                <div class="col-md-2 step">
+                    <i class="fas fa-file-medical"></i>
+                    <h3>Step 4</h3>
+                    <p>Provide Details</p>
+                </div>
+                <div class="col-md-2 step">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Step 5</h3>
+                    <p>Book Appointment</p>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+<section class="services" id="services">
+    <div class="container">
+        <h2 class="text-center">Our Services</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>General Consultation</h3>
+                    <p>Get expert medical advice and health assessments for all general health concerns.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Specialist Consultation</h3>
+                    <p>Consult with medical specialists for specific conditions requiring expert attention.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Chronic Diseases</h3>
+                    <p>Management and treatment for chronic conditions such as diabetes and hypertension.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Men's Health Services</h3>
+                    <p>Specialized healthcare for men's health issues including screenings and treatments.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Women's Health Services</h3>
+                    <p>Comprehensive care for women's health, including maternity and reproductive health.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Pediatric Services</h3>
+                    <p>Healthcare services for infants, children, and adolescents for their well-being.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Vaccination & Immunization</h3>
+                    <p>Get routine and travel vaccinations for protection against infectious diseases.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Lab Tests & Diagnosis</h3>
+                    <p>Comprehensive laboratory tests to diagnose various medical conditions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>STIs & UTIs</h3>
+                    <p>Testing, treatment, and management of sexually transmitted and urinary infections.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Pharmaceutical Services</h3>
+                    <p>Prescription refills, medication counseling, and pharmacy services.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Mental Health Services</h3>
+                    <p>Counseling and therapy for stress, anxiety, depression, and mental health issues.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card">
+                    <h3>Minor Procedures</h3>
+                    <p>Small surgical and medical procedures performed safely at the clinic.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer Section -->
+<footer class="footer" id="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Left: Logo -->
+            <div class="col-md-4">
+                <h2 class="footer-logo">MediClinic</h2>
+            </div>
+
+            <!-- Middle: Contact Details -->
+            <div class="col-md-4">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> +1 (123) 456-7890</p>
+                <p><i class="fas fa-envelope"></i> contact@mediclinic.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Main St, New York, NY, USA</p>
+            </div>
+
+            <!-- Right: Social Icons -->
+            <div class="col-md-4">
+                <h4>Follow Us</h4>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
