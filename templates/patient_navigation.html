@@ -1,7 +1,7 @@
 <!-- Top Navigation -->
 <nav class="navbar navbar-expand-lg mb-4">
     <div class="container">
-        <a class="navbar-brand" href="#">MediClinic</a>
+        <a class="navbar-brand" href="{{ url_for('patient_dashboard') }}">MediClinic</a>
         <div class="d-flex align-items-center ms-auto">
             <span class="navbar-text me-3">Welcome, {{ session['first_name'] }} {{ session['last_name'] }}</span>
             <a href="{{ url_for('logout') }}" class="btn btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

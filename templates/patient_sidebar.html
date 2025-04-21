@@ -1,6 +1,8 @@
     <div class="col-md-3 sidebar">
             <nav class="nav flex-column">
-                <a class="nav-link" href="#"><i class="fas fa-calendar-plus"></i> Schedule Appointment</a>
+               <a class="nav-link" href="{{url_for('patient_dashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a class="nav-link" href="{{url_for('select_doctor')}}"><i class="fas fa-calendar-plus"></i> Schedule Appointment</a>
+                 <a class="nav-link" href="#"><i class="fas fa-hourglass-half"></i> Pending Appointments</a>
                 <a class="nav-link" href="#"><i class="fas fa-calendar-check"></i> Upcoming Appointments</a>
                 <a class="nav-link" href="#"><i class="fas fa-history"></i> Appointment History</a>
                 <a class="nav-link" href="#"><i class="fas fa-bell"></i> Notifications</a>
