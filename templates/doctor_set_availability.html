@@ -88,13 +88,21 @@
 
                     <td>{{ record.slot_duration }}</td>
                     <td>
+
                         <div class="btn-group" role="group">
-                            <a href="#" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="btn btn-sm btn-outline-danger" title="Delete"><i
-                                    class="fas fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-sm btn-outline-warning" title="Set Unavailable"><i
-                                    class="fas fa-ban"></i></a>
+                            <a href="{{ url_for('edit_availability', availability_id=record.id) }}"
+                               class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ url_for('delete_availability', availability_id=record.id) }}"
+                                  onsubmit="return confirm('Are you sure you want to delete this schedule?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
                         </div>
+
+
                     </td>
                 </tr>
                 {% endfor %}

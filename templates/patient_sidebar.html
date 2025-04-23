@@ -1,11 +1,30 @@
-    <div class="col-md-3 sidebar">
-            <nav class="nav flex-column">
-               <a class="nav-link" href="{{url_for('patient_dashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a class="nav-link" href="{{url_for('select_doctor')}}"><i class="fas fa-calendar-plus"></i> Schedule Appointment</a>
-                 <a class="nav-link" href="#"><i class="fas fa-hourglass-half"></i> Pending Appointments</a>
-                <a class="nav-link" href="#"><i class="fas fa-calendar-check"></i> Upcoming Appointments</a>
-                <a class="nav-link" href="#"><i class="fas fa-history"></i> Appointment History</a>
-                <a class="nav-link" href="#"><i class="fas fa-bell"></i> Notifications</a>
-                <a class="nav-link" href="#"><i class="fas fa-headset"></i> Patient Support</a>
-            </nav>
-        </div>
+<div class="col-md-3 sidebar">
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.endpoint == 'patient_dashboard' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_dashboard') }}">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a class="nav-link {% if request.endpoint == 'select_doctor' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('select_doctor') }}">
+            <i class="fas fa-calendar-plus"></i> Schedule Appointment
+        </a>
+        <a class="nav-link {% if request.endpoint == 'patient_pending_bookings' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_pending_bookings') }}">
+            <i class="fas fa-hourglass-half"></i> Pending Appointments
+        </a>
+        <a class="nav-link {% if request.endpoint == 'patient_upcoming_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_upcoming_appointments') }}">
+            <i class="fas fa-calendar-check"></i> Upcoming Appointments
+        </a>
+        <a class="nav-link {% if request.endpoint == 'patient_cancelled_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_cancelled_appointments') }}">
+            <i class="fas fa-ban"></i> Cancelled Appointments
+        </a>
+        <a class="nav-link {% if request.endpoint == 'patient_previous_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_previous_appointments') }}">
+            <i class="fas fa-history"></i> Appointment History
+        </a>
+        <a class="nav-link {% if request.endpoint == 'notifications' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('patient_notifications') }}">
+            <i class="fas fa-bell"></i> Notifications {% if patient_notification_count > 0 %}
+            <span class="badge bg-danger">{{ patient_notification_count }}</span>
+        {% endif %}
+        </a>
+        <a class="nav-link {% if request.endpoint == 'contact_us' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('contact_us') }}">
+            <i class="fas fa-headset"></i> Patient Support
+        </a>
+    </nav>
+</div>

@@ -25,25 +25,15 @@
 
         <!-- Main Content Area -->
         <div class="col-md-9 main-content">
-
-            <div class="d-flex align-items-center mb-4">
-                <!-- Left: Profile Picture Placeholder -->
-                <div class="me-3">
-                    <div class="d-flex justify-content-center align-items-center bg-light rounded-circle"
-                         style="width: 100px; height: 100px;">
-                        <i class="fas fa-user fa-3x text-secondary"></i>
-                    </div>
-                </div>
-
-                <!-- Right: Patient Name -->
-                <div>
-                    <h4 class="mb-1">{{ first_name }} {{ last_name }}</h4>
-                    <p class="text-muted mb-0">Welcome to your dashboard</p>
-                </div>
+            <h4 class="mt-4 mb-3">Appointments Pending Approval</h4>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alert alert-{{ messages[0][0] }} alert-dismissible fade show" role="alert">
+                {{ messages[0][1] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
-
-            <h4 class="mt-4 mb-3">Upcoming Appointments</h4>
+            {% endif %}
+            {% endwith %}
 
             {% if appointments %}
             <table class="table table-bordered table-striped">
@@ -54,6 +44,7 @@
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -65,9 +56,11 @@
                     <td>{{ appt.appointment_date }}</td>
                     <td>{{ appt.start_time }}</td>
                     <td>{{ appt.end_time }}</td>
+                    <td class="text-primary">Pending Approval</td>
                     <td>
-                        <form method="POST" action=""
-                              onsubmit="return confirm('Are you sure you want to reschedule this appointment?');">
+                        <form method="POST"
+                              action="{{ url_for('patient_cancel_appointment', appointment_id=appt.appointment_id) }}"
+                              onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#cancelModal{{ appt.appointment_id }}">
                                 <i class="fas fa-times"></i> Cancel
@@ -104,9 +97,10 @@
                 </tbody>
             </table>
             {% else %}
-            <div class="alert alert-info">You have no upcoming appointments.</div>
+            <div class="alert alert-info">You have no appointments pending approval.</div>
             {% endif %}
         </div>
+
     </div>
 </div>
 

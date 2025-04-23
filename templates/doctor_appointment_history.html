@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediClinic - Office Manager Dashboard</title>
+    <title>MediClinic - Doctor Dashboard</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +25,9 @@
 
         <!-- Main Content Area -->
         <div class="col-md-9 main-content">
+
+
+            <h5 class="mt-4">Previous Appointments</h5>
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             <div class="alert alert-{{ messages[0][0] }} alert-dismissible fade show" role="alert">
@@ -34,50 +37,50 @@
             {% endif %}
             {% endwith %}
 
-            {% if availability_records %}
-            <hr>
-            <h4 class="mt-4">Your Availability Schedule</h4>
-            <table class="table table-bordered mt-3 align-middle">
-                <thead class="table-light">
+
+            {% if history %}
+            <table class="table table-hover mt-3">
+                <thead class="table-secondary">
                 <tr>
-                    <th>Day</th>
+                    <th>Patient</th>
+                    <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>Slot Duration (mins)</th>
-                    <th>Actions</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                {% for record in availability_records %}
+                {% for appt in history %}
                 <tr>
-                    <td>{{ record.day_of_week }}</td>
-                    <td>{{ record.start_time|time_format }}</td>
-                    <td>{{ record.end_time|time_format }}</td>
+                    <td>{{ appt.patient_firstname }} {{ appt.patient_lastname }}</td>
+                    <td>{{ appt.appointment_date }}</td>
+                    <td>{{ appt.start_time }}</td>
+                    <td>{{ appt.end_time }}</td>
+                    <td><span
+                        class="badge {% if appt.appointment_status == 'cancelled' %}bg-danger{% else %}bg-primary{%
+                        endif %}">
+                        <i class="fas {% if appt.appointment_status == 'cancelled' %}fa-ban{% else %}fa-clock{% endif %}"></i>
+                        {{ appt.appointment_status.capitalize() }}
+                        </span> </td>
 
-                    <td>{{ record.slot_duration }}</td>
                     <td>
-
-                        <div class="btn-group" role="group">
-                            <a href="{{ url_for('edit_availability', availability_id=record.id) }}"
-                               class="btn btn-sm btn-outline-primary" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="POST" action="{{ url_for('delete_availability', availability_id=record.id) }}"
-                                  onsubmit="return confirm('Are you sure you want to delete this schedule?');">
-                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
-
-
+                        {% if appt.appointment_status == 'cancelled' %}
+                        {{ appt.cancellation_reason or 'N/A' }}
+                        {% elif appt.appointment_status == 'completed' %}
+                        {{ appt.doctor_notes or 'No notes provided' }}
+                        {% else %}
+                        -
+                        {% endif %}
                     </td>
+
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             {% else %}
-            <p class="text-warning">You havent set your schedule. Please do so</p>
+            <div class="alert alert-info mt-3">No previous appointments at the moment.</div>
             {% endif %}
 
 

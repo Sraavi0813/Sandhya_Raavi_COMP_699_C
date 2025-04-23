@@ -24,25 +24,11 @@
         {% include('office_manager_sidebar.html') %}
 
         <!-- Main Content Area -->
-        <div class="col-md-9 main-content">
+        <div class="col-md-9 main-content"> <br>
 
-            <div class="d-flex align-items-center mb-4">
-                <!-- Left: Profile Picture Placeholder -->
-                <div class="me-3">
-                    <div class="d-flex justify-content-center align-items-center bg-light rounded-circle"
-                         style="width: 100px; height: 100px;">
-                        <i class="fas fa-user fa-3x text-secondary"></i>
-                    </div>
-                </div>
 
-                <!-- Right: Patient Name -->
-                <div>
-                    <h4 class="mb-1"> {{ session['first_name'] }} {{ session['last_name'] }}</h4>
-                    <p class="text-muted mb-0">Welcome to your dashboard</p>
-                </div>
-            </div>
 
-            <h5 class=" mb-4">Today's Appointments</h5>
+            <h3 class=" mb-4">Upcoming Appointments</h3>
 
             {% if appointments %}
             <table class="table table-bordered table-hover">
@@ -74,7 +60,7 @@
                 </tbody>
             </table>
             {% else %}
-            <p class="text-muted ">No appointments scheduled for today.</p>
+            <p class="text-muted ">No upcoming appointments for now.</p>
             {% endif %}
 
 

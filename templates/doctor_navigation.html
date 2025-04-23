@@ -3,7 +3,7 @@
     <div class="container">
         <a class="navbar-brand" href="#">MediClinic</a>
         <div class="d-flex align-items-center ms-auto">
-            <span class="navbar-text me-3">Welcome, {{ session['first_name'] }} {{ session['last_name'] }}</span>
+            <span class="navbar-text me-3">Welcome, Dr. {{ session['first_name'] }} {{ session['last_name'] }}</span>
             <a href="{{ url_for('staff_logout') }}" class="btn btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>

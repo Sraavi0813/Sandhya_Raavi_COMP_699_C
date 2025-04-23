@@ -1,10 +1,25 @@
 <div class="col-md-3 sidebar">
     <nav class="nav flex-column">
-        <a class="nav-link" href="#"><i class="fas fa-calendar-plus me-2"></i>Appointment Schedule</a>
-        <a class="nav-link" href="#"><i class="fas fa-user-md me-2"></i>Manage Doctors/Staff</a>
-        <a class="nav-link" href="{{ url_for('staff_registration') }}"><i class="fas fa-user-plus me-2"></i>Add Doctors/Staff</a>
-        <a class="nav-link" href="#"><i class="fas fa-calendar-days me-2"></i>Clinic Calendar</a>
-        <a class="nav-link" href="#"><i class="fas fa-user-clock me-2"></i>Doctor Availability</a>
-        <a class="nav-link" href="#"><i class="fas fa-exclamation-triangle me-2"></i>Schedule Conflicts</a>
+        <a class="nav-link {% if request.endpoint == 'office_manager_dashboard' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('office_manager_dashboard') }}">
+            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a class="nav-link {% if request.endpoint == 'officemanager_upcoming_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('officemanager_upcoming_appointments') }}">
+            <i class="fas fa-calendar-plus me-2"></i> Appointment Schedule
+        </a>
+        <a class="nav-link {% if request.endpoint == 'officemanager_cancelled_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('officemanager_cancelled_appointments') }}">
+            <i class="fas fa-calendar-times me-2"></i> Cancelled Appointments
+        </a>
+        <a class="nav-link {% if request.endpoint == 'officemanager_completed_appointments' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('officemanager_completed_appointments') }}">
+            <i class="fas fa-calendar-check me-2"></i> Completed Appointments
+        </a>
+        <a class="nav-link {% if request.endpoint == 'manage_staff' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('manage_staff') }}">
+            <i class="fas fa-user-md me-2"></i> Manage Doctors/Staff
+        </a>
+        <a class="nav-link {% if request.endpoint == 'staff_registration' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('staff_registration') }}">
+            <i class="fas fa-user-plus me-2"></i> Add Doctors/Staff
+        </a>
+        <a class="nav-link {% if request.endpoint == 'manage_doctor_availability' %}active bg-primary text-white rounded{% endif %}" href="{{ url_for('manage_doctor_availability') }}">
+            <i class="fas fa-user-clock me-2"></i> Doctor Availability
+        </a>
     </nav>
 </div>

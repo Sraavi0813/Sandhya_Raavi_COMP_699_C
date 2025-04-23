@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediClinic - Doctor Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+
+
+<!-- Main Dashboard Layout -->
+{% include('doctor_navigation.html') %}
+<div class="container">
+
+    <div class="row">
+        <!-- Sidebar -->
+
+        {% include('doctor_sidebar.html') %}
+
+        <!-- Main Content Area -->
+        <div class="col-md-9 main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alert alert-{{ messages[0][0] }} alert-dismissible fade show" role="alert">
+                {{ messages[0][1] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+
+            <h4 class="mt-4">Upcoming Appointments</h4>
+
+            {% if appointments %}
+            <table class="table table-hover mt-3">
+                <thead class="table-success">
+                <tr>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for appt in appointments %}
+                <tr>
+                    <td>{{ appt.patient_firstname }} {{ appt.patient_lastname }}</td>
+                    <td>{{ appt.appointment_date }}</td>
+                    <td>{{ appt.start_time }}</td>
+                    <td>{{ appt.end_time }}</td>
+                    <td>
+                        <!-- Add Notes Button -->
+                        <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#addNotesModal{{ appt.appointment_id }}">
+                            <i class="fas fa-notes-medical"></i>
+                        </button>
+
+                        <!-- Cancel Appointment Button -->
+                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#cancelModal{{ appt.appointment_id }}">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Add Notes Modal -->
+                <div class="modal fade" id="addNotesModal{{ appt.appointment_id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form method="POST" action="{{ url_for('add_notes', appointment_id=appt.appointment_id) }}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Notes for {{ appt.patient_firstname }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" name="notes" required rows="4"></textarea>
+                                        <small class="text-muted">Appointment will be marked as completed.</small>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Save Notes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Cancel Modal -->
+                <div class="modal fade" id="cancelModal{{ appt.appointment_id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form method="POST"
+                              action="{{ url_for('cancel_appointment_by_doctor', appointment_id=appt.appointment_id) }}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Cancel Appointment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to cancel this appointment?</p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Cancellation Reason</label>
+                                        <textarea class="form-control" name="reason" required rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger">Confirm Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info mt-3">You have no upcoming appointments.</div>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

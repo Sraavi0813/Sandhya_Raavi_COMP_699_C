@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediClinic - Patient Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+
+
+<!-- Main Dashboard Layout -->
+{% include('patient_navigation.html') %}
+<div class="container">
+
+    <div class="row">
+        <!-- Sidebar -->
+        {% include('patient_sidebar.html') %}
+
+
+        <!-- Main Content Area -->
+        <div class="col-md-9 main-content">
+            <h3 class="mt-4 mb-3">Previous Appointments</h3>
+
+            {% if appointments %}
+            <table class="table table-bordered table-striped">
+                <thead class="table-primary">
+                <tr>
+                    <th>Doctor</th>
+                    <th>Specialization</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for appt in appointments %}
+                <tr>
+                    <td>{{ appt.doctor_firstname }} {{ appt.doctor_lastname }}</td>
+                    <td>{{ appt.specialization or 'General' }}</td>
+                    <td>{{ appt.appointment_date }}</td>
+                    <td>{{ appt.start_time }}</td>
+                    <td>{{ appt.end_time }}</td>
+                    <td> <span
+                            class="badge {% if appt.appointment_status == 'cancelled' %}bg-danger{% else %}bg-primary{% endif %}">
+        <i class="fas {% if appt.appointment_status == 'cancelled' %}fa-ban{% else %}fa-clock{% endif %}"></i>
+        {{ appt.appointment_status.capitalize() }}
+    </span>
+                    </td>
+                    <td>
+                        {% if appt.appointment_status == 'cancelled' %}
+                        {{ appt.cancellation_reason or 'N/A' }}
+                        {% elif appt.appointment_status == 'completed' %}
+                        {{ appt.doctor_notes or 'No notes provided' }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-info">You have no previous appointments.</div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
